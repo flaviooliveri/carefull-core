@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 900
+
+Resources:
+  DataExtractionVendor:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: data-extraction-vendor/app
+      Handler: notifications.app.lambda_handler
+      Environment:
+        Variables:
+          DB_HOST: carefull-dev.cluster-cfud6duxd2ik.us-east-1.rds.amazonaws.com
+          DB_NAME: carefull
+          DB_USER: root
+          DB_PASSWORD: 3jiPsyPwef
+      Runtime: python3.8
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt AlertNotificationsFIFO.Arn
+            BatchSize: 10
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-02b50dde6791b11bf
+          - sg-0b00612112d47a865
+        SubnetIds:
+          - subnet-0c41451f745afe60b
+          - subnet-06448f4819a2bd27a
+          - subnet-0ff7e75196dcd740f
+          - subnet-0df97e54c763d5204
+          - subnet-0255fd99c013dc51c
+          - subnet-0b1a9c761f4176df3
+      Layers:
+         - arn:aws:lambda:us-east-1:658335388846:layer:psycopg2-py38:1
+
+  DataExtractionVendorFIFO:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: DataExtractionVendor.fifo
+      VisibilityTimeout: 900
+      FifoQueue: true
+      ContentBasedDeduplication: true

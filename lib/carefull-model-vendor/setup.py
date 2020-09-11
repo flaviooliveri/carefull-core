@@ -7,6 +7,6 @@ setup(
     description='Models for vendor extraction',
     author='Carefull',
     license='MIT',
-    install_requires=['git+ssh://git@github.com/get-carefull/carefull-core.git@develop#carefull-model-common&subdirectory=lib/carefull-model-common',
+    install_requires=['carefull-model-common@git+ssh://git@github.com/get-carefull/carefull-core.git@develop#egg=carefull-model-common&subdirectory=lib/carefull-model-common',
                       'python-Levenshtein-wheels', 'simhash', 'fuzzywuzzy']
 )

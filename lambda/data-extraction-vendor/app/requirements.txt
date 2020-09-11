@@ -1,0 +1,2 @@
+git+ssh://git@github.com/get-carefull/carefull-core.git@develop#egg=carefull-model-vendor&subdirectory=lib/carefull-model-vendor
+git+ssh://git@github.com/get-carefull/carefull-core.git@develop#egg=carefull-alert-common&subdirectory=lib/carefull-alert-common

@@ -137,4 +137,3 @@ def regenerate_model(connection, local=False):
     repo.save(simhash_model, BinaryModelType.VENDOR, local)
     connection.close()
     logger.info(f"--- {(time.time() - start_time)} seconds ---")
-
